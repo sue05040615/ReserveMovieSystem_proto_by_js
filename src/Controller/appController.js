@@ -2,6 +2,7 @@ import { state } from "../Model/state.js";
 import { renderLogin } from "../View/loginView.js";
 import { renderMenu } from "../View/menuView.js";
 import { renderReserve } from "../View/reserveView.js";
+import { getMovieList } from "../Service/appService.js";
 
 export function initAppController() {
   //画面描画ハンドラ
@@ -27,13 +28,14 @@ export function initAppController() {
       });
     } else if (state.currentView === "reserve") {
       //予約画面描画
-      //引数：メニューへボタン押下時のイベント
+      //引数1：メニューへボタン押下時のイベント
+      //引数2：映画一覧
       renderReserve(() => {
         //stateの変更
         state.currentView = "menu";
         //再描画
         handleRender(state);
-      });
+      }, getMovieList());
     }
   }
 
